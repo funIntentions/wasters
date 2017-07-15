@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scenes/enemy.tscn" type="PackedScene" id=1]
+
+[node name="flocking_test" type="Node"]
+
+[node name="enemy_0" parent="." instance=ExtResource( 1 )]
+
+alignment_weight = 1.0
+cohesion_weight = 1.0
+separation_weight = 1.0
+
+[node name="enemy_1" parent="." groups=[ "target" ] instance=ExtResource( 1 )]
+
+transform/pos = Vector2( 531.699, 381.584 )
+alignment_weight = 1.0
+cohesion_weight = 1.0
+separation_weight = 1.0
+
+[node name="enemy_2" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( 567.069, 229.221 )
+alignment_weight = 1.0
+cohesion_weight = 1.0
+separation_weight = 1.0
+
+

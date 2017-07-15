@@ -21,6 +21,10 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 max_health = 100.0
+alignment_distance = 1000.0
+alignment_weight = 1.0
+cohesion_weight = 1.0
+separation_weight = 1.0
 
 [node name="eye_ball" type="Sprite" parent="."]
 
