@@ -1,0 +1,7 @@
+[gd_scene format=1]
+
+[node name="temp_display" type="Node"]
+
+[node name="Node" type="Node" parent="."]
+
+

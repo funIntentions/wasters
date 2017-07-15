@@ -12,6 +12,7 @@ export var alignment_distance = 1000.0
 export var alignment_weight = 1.0
 export var cohesion_weight = 1.0
 export var separation_weight = 1.0
+export var seek_weight = 1.0
 
 var damage_taken = 0.0
 var damage_force = 0.0
@@ -117,6 +118,13 @@ func calculate_target_center_of_mass():
 	
 	return center_of_mass
 
+func _process(delta):
+	if is_colliding():
+		print("coliding")
+		var body = get_collider()
+		if body.is_in_group("target"):
+			print("player hit")
+
 func _fixed_process(delta):
 	
 	var target_center_of_mass = calculate_target_center_of_mass()
@@ -126,7 +134,7 @@ func _fixed_process(delta):
 	var separation = compute_separation()
 	var seek = compute_seek(target_center_of_mass)
 	
-	velocity += cohesion * cohesion_weight + separation * separation_weight + alignment * alignment_weight
+	velocity += cohesion * cohesion_weight + separation * separation_weight + alignment * alignment_weight + seek * seek_weight
 	
 	var speed = velocity.length()
 	
@@ -159,6 +167,7 @@ func take_damage(damage, force):
 
 func _ready():
 	set_fixed_process(true)
+	set_process(true)
 	#velocity = Vector2(randf(), randf())
 
 func temp(delta):
