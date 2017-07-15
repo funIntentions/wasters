@@ -44,8 +44,6 @@ func _process(delta):
 		set_state(State.CLOSING)
 	
 	update_state(delta)
-	
-	laser.set_laser_extents(laser_length, laser_height)
 
 
 func update_state(delta):
@@ -64,6 +62,8 @@ func update_state(delta):
 			laser_height = lerp(0.0, laser_max_height, percentage_done)
 		elif current_state == State.CLOSING:
 			laser_height = lerp(laser_previous_height, 0.0, percentage_done)
+		
+		laser.set_laser_extents(laser_length, laser_height)
 
 func set_state(state):
 	
@@ -76,6 +76,11 @@ func set_state(state):
 			state_length = time_to_open
 	else:
 		state_length = 0.0
+	
+	if state != State.CLOSED:
+		laser.set_active(true)
+	else:
+		laser.set_active(false)
 	
 	laser_previous_length = laser_length
 	laser_previous_height = laser_height
@@ -100,4 +105,10 @@ func _fixed_process(delta):
 	velocity += direction * delta * FORCE
 	
 	var motion = velocity * delta
-	move( motion )
+	motion = move(motion)
+	
+	if (is_colliding()):
+		var n = get_collision_normal()
+		motion = n.slide(motion)
+		velocity = n.slide(velocity)
+		move(motion)

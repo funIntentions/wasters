@@ -28,6 +28,7 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+max_health = 100.0
 
 [node name="eye_ball" type="Sprite" parent="enemy_0"]
 
@@ -55,6 +56,8 @@ time_to_open = 0.5
 [node name="laser" type="Node2D" parent="player"]
 
 script/script = ExtResource( 4 )
+damage_per_second = 100.0
+damage_force = 300
 
 [node name="skull_top" type="Sprite" parent="player"]
 
