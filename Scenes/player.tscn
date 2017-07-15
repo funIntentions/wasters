@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://Player/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://Player/Laser.gd" type="Script" id=2]
 [ext_resource path="res://Art/Player_Skull.png" type="Texture" id=3]
-[ext_resource path="res://Art/Player_Jaw.png" type="Texture" id=4]
-[ext_resource path="res://Art/Frames/Player_Eyes1.tex" type="Texture" id=5]
-[ext_resource path="res://Art/Frames/Player_Eyes2.tex" type="Texture" id=6]
-[ext_resource path="res://Art/Frames/Player_Eyes3.tex" type="Texture" id=7]
+[ext_resource path="res://Art/Frames/Player_Eyes1.tex" type="Texture" id=4]
+[ext_resource path="res://Art/Frames/Player_Eyes2.tex" type="Texture" id=5]
+[ext_resource path="res://Art/Frames/Player_Eyes3.tex" type="Texture" id=6]
+[ext_resource path="res://Art/Frames/Player_Jaw.tex" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -21,7 +21,7 @@ script/source = ""
 [sub_resource type="SpriteFrames" id=3]
 
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -35,7 +35,7 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:transform/scale")
+tracks/0/path = NodePath("Idle Eyes:transform/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:transform/rot")
+tracks/1/path = NodePath("Idle Eyes:transform/rot")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -55,7 +55,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:transform/pos")
+tracks/2/path = NodePath("Idle Eyes:transform/pos")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
@@ -65,7 +65,7 @@ tracks/2/keys = {
 "values": [ Vector2( -31.399, 15.3145 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("AnimatedSprite:frame")
+tracks/3/path = NodePath("Idle Eyes:frame")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -75,7 +75,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("AnimatedSprite:playing")
+tracks/4/path = NodePath("Idle Eyes:playing")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -84,6 +84,22 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true ]
 }
+
+[sub_resource type="SpriteFrames" id=5]
+
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "Open Jaw"
+length = 1.0
+loop = false
+step = 0.1
 
 [node name="player" type="KinematicBody2D"]
 
@@ -108,11 +124,6 @@ damage_force = 300
 
 texture = ExtResource( 3 )
 
-[node name="skull_bottom" type="Sprite" parent="."]
-
-transform/pos = Vector2( -2, 107 )
-texture = ExtResource( 4 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 transform/pos = Vector2( -1, 4 )
@@ -120,21 +131,37 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Idle Eyes" type="AnimatedSprite" parent="."]
 
 transform/pos = Vector2( -31.399, 15.3145 )
 frames = SubResource( 3 )
 animation = "default"
-frame = 1
 playing = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Idle Eyes 2" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/Player_EyesIdleAnim = SubResource( 4 )
 playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Open Jaw" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( -1.22772, 108.041 )
+frames = SubResource( 5 )
+animation = "default"
+
+[node name="Open Jaw 2" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/Open Jaw" = SubResource( 6 )
+playback/active = false
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
