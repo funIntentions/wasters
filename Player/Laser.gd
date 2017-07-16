@@ -6,13 +6,17 @@ var is_active = false
 
 export var damage_per_second = 100.0
 export var damage_force = 500
+export var top_margin = 100
+export var bottom_margin = 20
+
+onready var jaw = get_node("../jaw")
 
 func _ready():
 	set_process(true)
 
 func set_laser_extents(length, height):
 	laser_length = length
-	laser_height = height
+	#laser_height = height
 
 func set_active(state):
 	is_active = state
@@ -21,9 +25,8 @@ func _draw():
 	if not is_active:
 		return
 	
-	var height_offset = 50
-	var laser_position = Vector2(-laser_length, height_offset)
-	var laser_rect = Rect2(laser_position, Vector2(laser_length, laser_height))
+	var laser_position = Vector2(-laser_length, top_margin)
+	var laser_rect = Rect2(laser_position, Vector2(laser_length, laser_height - bottom_margin))
 	draw_rect(laser_rect, Color(0.0, 1.0, 0.0, 1.0))
 
 func _process(delta):
@@ -33,9 +36,11 @@ func _process(delta):
 	if not is_active:
 		return
 	
-	var height_offset = 50
-	var laser_position = Vector2(-laser_length, height_offset)
-	var laser_rect = Rect2(laser_position + get_global_pos(), Vector2(laser_length, laser_height))
+	laser_height = jaw.get_pos().y - get_pos().y
+	print(laser_height)
+	
+	var laser_position = Vector2(-laser_length, top_margin)
+	var laser_rect = Rect2(laser_position + get_global_pos(), Vector2(laser_length, laser_height - bottom_margin))
 	
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
