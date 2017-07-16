@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=1]
+[gd_scene load_steps=28 format=1]
 
 [ext_resource path="res://Player/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://Player/Laser.gd" type="Script" id=2]
@@ -9,7 +9,12 @@
 [ext_resource path="res://Art/Frames/Player_Eyes1.tex" type="Texture" id=7]
 [ext_resource path="res://Art/Frames/Player_Eyes2.tex" type="Texture" id=8]
 [ext_resource path="res://Art/Frames/Player_Eyes3.tex" type="Texture" id=9]
-[ext_resource path="res://Art/Frames/Player_Jaw.tex" type="Texture" id=10]
+[ext_resource path="res://Art/Frames/Brian blast 1.tex" type="Texture" id=10]
+[ext_resource path="res://Art/Frames/Brian blast 2.tex" type="Texture" id=11]
+[ext_resource path="res://Art/Frames/Brian blast 3.tex" type="Texture" id=12]
+[ext_resource path="res://Art/Frames/Brian blast 4.tex" type="Texture" id=13]
+[ext_resource path="res://Art/Frames/Brian blast 5.tex" type="Texture" id=14]
+[ext_resource path="res://Art/Frames/Player_Jaw.tex" type="Texture" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -39,6 +44,32 @@ animations = [ {
 "speed": 5.0
 } ]
 script/script = SubResource( 3 )
+
+[sub_resource type="SpriteFrames" id=11]
+
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=12]
+
+resource/name = "Brain Blast"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Brain Blast:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
 
 [sub_resource type="Animation" id=5]
 
@@ -115,7 +146,7 @@ tracks/4/keys = {
 [sub_resource type="SpriteFrames" id=7]
 
 animations = [ {
-"frames": [ ExtResource( 10 ) ],
+"frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -244,18 +275,46 @@ _update_shape_index = 0
 
 [node name="skull" type="AnimatedSprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 6.77216, -97.6501 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 1
 
 [node name="eyes" type="AnimatedSprite" parent="skull"]
 
 transform/pos = Vector2( -30.5244, 15.8989 )
 frames = SubResource( 4 )
 animation = "default"
-frame = 1
+frame = 2
 playing = true
+
+[node name="Brain Blast" type="AnimatedSprite" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+transform/pos = Vector2( 5.61981, -158.839 )
+frames = SubResource( 11 )
+animation = "default"
+frame = 4
+
+[node name="eyes1" type="AnimatedSprite" parent="Brain Blast"]
+
+transform/pos = Vector2( -28.9748, 77.0881 )
+frames = SubResource( 4 )
+animation = "default"
+frame = 2
+playing = true
+
+[node name="Brain Blast 2" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/Brain Blast" = SubResource( 12 )
+playback/active = true
+playback/speed = 1.2
+blend_times = [  ]
+autoplay = ""
 
 [node name="Skull Idle" type="AnimationPlayer" parent="."]
 
