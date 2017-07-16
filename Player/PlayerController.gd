@@ -44,7 +44,6 @@ func _process(delta):
 		flip_sprites(false)
 		set_rot(angle_to)
 	
-	print(angle_to)
 	#set_rot(angle_to)
 	
 	# Update the mouth
