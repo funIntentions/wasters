@@ -67,14 +67,18 @@ func _fixed_process(delta):
 	# use global coordinates, not local to node
 	var up = -get_global_transform().y
 	var forward = -get_global_transform().x
-	var ray_start = get_global_pos() + (up * number_of_rays * ray_pixel_offset)
-	var ray_end = get_global_pos() + ray_start + (forward * laser_length)
+	#var ray_start = get_global_pos() + (up * number_of_rays * ray_pixel_offset)
+	#var ray_end = get_global_pos() + ray_start + (forward * laser_length)
 	
-	var hits = segment_cast(get_global_pos(), get_global_pos() + forward * laser_length)
+	var ray_start = get_global_pos()
+	var ray_end = get_global_pos() + forward * laser_length
+	var dir = ray_end - ray_start
+	
+	var hits = segment_cast(ray_start, ray_end)
 	
 	for hit in hits:
 		if (not hit.empty() and hit.collider.is_in_group("enemy")):
-			print("hit")
+			hit.collider.take_damage(damage_per_second * delta, damage_force, dir)
 	
 	return
 	for ray in range(number_of_rays):
