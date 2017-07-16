@@ -141,10 +141,10 @@ func _process(delta):
 		# TODO: Play animation.
 	
 	if is_colliding():
-		print("coliding")
+		#print("coliding")
 		var body = get_collider()
-		if body.is_in_group("target"):
-			print("player hit")
+		#if body.is_in_group("target"):
+			#print("player hit")
 
 func _fixed_process(delta):
 	

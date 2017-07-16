@@ -6,7 +6,7 @@ const OPENING = 2
 const CLOSING = 3
 const State = {CLOSED = 0, OPEN = 1, OPENING = 2, CLOSING = 3}
 
-const FORCE = 200
+export var accel = 800
 
 export var time_to_open = 0.5
 export var brain_juice_max = 100.0
@@ -21,20 +21,23 @@ var velocity = Vector2()
 onready var skull_bottom = get_node("skull_bottom")
 onready var laser = get_node("laser")
 
-onready var animation_player = get_node("Open Jaw 2")
+onready var jaw_animation_player = get_node("Open Jaw 2")
 var prev_anim_time = 0.0
+
+export var max_velocity = 600.0
+export var deaccel = 50.0
 
 func _ready():
 	set_fixed_process(true)
 	set_process(true)
 	#print("States: CLOSED = 0, OPEN = 1, OPENING = 2, CLOSING = 3")
 
-	animation_player.set_current_animation("Open Jaw")
+	jaw_animation_player.set_current_animation("Open Jaw")
 
 func _process(delta):
 	
 	var mouse_pos = get_viewport().get_mouse_pos()
-	var position_from = get_pos() + laser.get_laser_offset()
+	var position_from = get_pos()
 	var angle_to = position_from.angle_to_point(mouse_pos) - PI/2
 	
 	if abs(angle_to) > PI/2:
@@ -44,7 +47,6 @@ func _process(delta):
 		flip_sprites(false)
 		set_rot(angle_to)
 	
-	print(angle_to)
 	#set_rot(angle_to)
 	
 	# Update the mouth
@@ -66,7 +68,7 @@ func get_brain_juice():
 	return brain_juice
 
 func update_state(delta):
-	var length = animation_player.get_current_animation_length()
+	var length = jaw_animation_player.get_current_animation_length()
 	
 	if state_length > 0.0:
 		current_state_time += delta
@@ -75,12 +77,12 @@ func update_state(delta):
 			#print("laser {length: ", laser_length, ", height: ", laser_height,"}")
 		if current_state == State.OPENING:
 			var anim_time = lerp(0.0, length, percentage_done)
-			animation_player.seek(anim_time, true)
+			jaw_animation_player.seek(anim_time, true)
 			if percentage_done >= 1.0:
 				set_state(State.OPEN)
 		elif current_state == State.CLOSING:
 			var anim_time = lerp(prev_anim_time, 0.0, percentage_done)
-			animation_player.seek(anim_time, true)
+			jaw_animation_player.seek(anim_time, true)
 			if percentage_done >= 1.0:
 				set_state(State.CLOSED)
 	
@@ -96,7 +98,7 @@ func set_state(state):
 			state_length = current_state_time
 		elif current_state == State.OPEN:
 			state_length = time_to_open
-		prev_anim_time = animation_player.get_current_animation_pos()
+		prev_anim_time = jaw_animation_player.get_current_animation_pos()
 	else:
 		state_length = 0.0
 	
@@ -113,17 +115,19 @@ func set_state(state):
 
 func _fixed_process(delta):
 	
-	var direction = Vector2(0,0)
-	if Input.is_action_pressed("move_up"):
-		direction.y -= 1;
-	if Input.is_action_pressed("move_down"):
-		direction.y += 1;
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1;
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1;
+	var direction = Vector2()
+	if current_state == State.OPEN or current_state == State.OPENING:
+		direction = get_global_transform().x
+	#elif current_state == State.CLOSING:
+	#	direction = -get_global_transform().x
 	
-	velocity += direction * delta * FORCE
+	velocity += direction * delta * accel
+	
+	if velocity.length() >= max_velocity:
+		velocity = velocity.normalized() * max_velocity
+	
+	if velocity.length() >= 1:
+		velocity -= velocity.normalized()  * delta * deaccel
 	
 	var motion = velocity * delta
 	motion = move(motion)
