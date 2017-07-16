@@ -37,10 +37,11 @@ func _process(delta):
 	
 	var laser_position = Vector2(-laser_length, top_margin)
 	var laser_rect = Rect2(laser_position + get_global_pos(), Vector2(laser_length, laser_height - bottom_margin))
+	var laser_direction = Vector2(-1,0).rotated(get_global_transform().get_rotation())
 	
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
 		if laser_rect.has_point(enemy.get_pos()):
-			enemy.take_damage(damage_per_second * delta, damage_force)
+			enemy.take_damage(damage_per_second * delta, damage_force, laser_direction)
 			#print("hit")
 
