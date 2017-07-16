@@ -9,6 +9,9 @@ const State = {CLOSED = 0, OPEN = 1, OPENING = 2, CLOSING = 3}
 const FORCE = 200
 
 export var time_to_open = 0.5
+export var brain_juice_max = 100.0
+
+onready var brain_juice = brain_juice_max
 
 var current_state = State.CLOSED
 var current_state_time = 0.0
@@ -39,6 +42,8 @@ func _process(delta):
 	
 	update_state(delta)
 
+func get_brain_juice():
+	return brain_juice
 
 func update_state(delta):
 	var length = animation_player.get_current_animation_length()
@@ -58,6 +63,9 @@ func update_state(delta):
 			animation_player.seek(anim_time, true)
 			if percentage_done >= 1.0:
 				set_state(State.CLOSED)
+	
+	if current_state != State.CLOSED:
+		brain_juice -= delta
 
 func set_state(state):
 	

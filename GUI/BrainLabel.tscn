@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://GUI/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://GUI/BrainJuiceLabel.gd" type="Script" id=2]
+
+[node name="brain_juice_label" type="Label"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+theme/theme = ExtResource( 1 )
+margin/left = 300.0
+margin/top = 200.0
+margin/right = -758.0
+margin/bottom = -375.0
+text = "Juice: "
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 2 )
+player_path = null
+
+[node name="juice_value" type="Label" parent="."]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 100.0
+margin/top = 0.0
+margin/right = -128.0
+margin/bottom = 35.0
+text = "1234"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

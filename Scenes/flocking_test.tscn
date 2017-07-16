@@ -1,29 +1,46 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Scenes/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/BrainLabel.tscn" type="PackedScene" id=3]
 
 [node name="flocking_test" type="Node"]
 
 [node name="enemy_0" parent="." instance=ExtResource( 1 )]
 
+max_velocity = 400.0
+max_acceleration = 600.0
 separation_weight = 2.0
 seek_weight = 2.5
+laser_weight = 5.0
 
 [node name="enemy_1" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 531.699, 381.584 )
+max_velocity = 400.0
+max_acceleration = 600.0
 separation_weight = 2.0
 seek_weight = 2.5
+laser_weight = 5.0
 
 [node name="enemy_2" parent="." instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 567.069, 229.221 )
+max_velocity = 400.0
+max_acceleration = 600.0
 separation_weight = 2.0
 seek_weight = 2.5
+laser_weight = 5.0
 
 [node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1014.55, 334.411 )
+brain_juice_max = 100.0
+
+[node name="hud" type="Node" parent="."]
+
+[node name="brain_juice_label" parent="hud" instance=ExtResource( 3 )]
+
+player_path = NodePath("../../player")
 
 
