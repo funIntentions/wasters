@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 33.0
+radius = 80.7868
 
 [sub_resource type="SpriteFrames" id=2]
 
@@ -25,7 +25,7 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:transform/scale")
+tracks/0/path = NodePath("eye_ball/AnimatedSprite:transform/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -48,15 +48,15 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+max_velocity = 400.0
+max_acceleration = 600.0
 max_health = 100.0
 alignment_distance = 1000.0
 alignment_weight = 1.0
 cohesion_weight = 1.0
 separation_weight = 1.0
-
-[node name="eye_ball" type="Sprite" parent="."]
-
-texture = ExtResource( 2 )
+seek_weight = 1.0
+laser_weight = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -64,7 +64,11 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="eye_ball" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="eye_ball"]
 
 frames = SubResource( 2 )
 animation = "default"

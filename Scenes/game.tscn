@@ -7,11 +7,10 @@
 
 [node name="enemy_0" parent="." instance=ExtResource( 1 )]
 
-max_velocity = 400.0
-max_acceleration = 600.0
-seek_weight = 1.0
-laser_weight = 5.0
+transform/pos = Vector2( 329.986, 323.344 )
 
-[node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
+[node name="player" parent="." groups=[
+"target",
+] instance=ExtResource( 2 )]
 
 
