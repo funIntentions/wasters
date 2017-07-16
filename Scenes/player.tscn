@@ -1,18 +1,47 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://Player/PlayerController.gd" type="Script" id=1]
 [ext_resource path="res://Player/Laser.gd" type="Script" id=2]
-[ext_resource path="res://Art/Player_Skull.png" type="Texture" id=3]
-[ext_resource path="res://Art/Frames/Player_Eyes1.tex" type="Texture" id=4]
-[ext_resource path="res://Art/Frames/Player_Eyes2.tex" type="Texture" id=5]
-[ext_resource path="res://Art/Frames/Player_Eyes3.tex" type="Texture" id=6]
-[ext_resource path="res://Art/Frames/Player_Jaw.tex" type="Texture" id=7]
+[ext_resource path="res://Art/Player_Skulldle.png" type="Texture" id=3]
+[ext_resource path="res://Art/Player_Skulldle2.png" type="Texture" id=4]
+[ext_resource path="res://Art/Player_Skulldle3.png" type="Texture" id=5]
+[ext_resource path="res://Art/Player_Skulldle4.png" type="Texture" id=6]
+[ext_resource path="res://Art/Frames/Player_Eyes1.tex" type="Texture" id=7]
+[ext_resource path="res://Art/Frames/Player_Eyes2.tex" type="Texture" id=8]
+[ext_resource path="res://Art/Frames/Player_Eyes3.tex" type="Texture" id=9]
+[ext_resource path="res://Art/Frames/Player_Jaw.tex" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 85.4175
 height = 28.131
+
+[sub_resource type="SpriteFrames" id=7]
+
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "Idle Skull"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Skull Animation:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 3, 2, 1, 0 ]
+}
 
 [sub_resource type="GDScript" id=2]
 
@@ -21,7 +50,7 @@ script/source = ""
 [sub_resource type="SpriteFrames" id=3]
 
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -88,11 +117,38 @@ tracks/4/keys = {
 [sub_resource type="SpriteFrames" id=5]
 
 animations = [ {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "Close Jaw"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Open Jaw:transform/rot")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 28.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Open Jaw:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 18.4161, 198.893 ), Vector2( -1.22772, 108.041 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 
@@ -127,7 +183,7 @@ tracks/2/imported = false
 tracks/2/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
-"update": 2,
+"update": 0,
 "values": [ false ]
 }
 
@@ -150,10 +206,6 @@ script/script = ExtResource( 2 )
 damage_per_second = 100.0
 damage_force = 300
 
-[node name="skull_top" type="Sprite" parent="."]
-
-texture = ExtResource( 3 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 transform/pos = Vector2( -1, 4 )
@@ -161,12 +213,30 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
+[node name="Skull Animation" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( -1.22778, -1.22775 )
+frames = SubResource( 7 )
+animation = "default"
+frame = 1
+
+[node name="Skull Idle" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/Idle Skull" = SubResource( 8 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "Idle Skull"
+
 [node name="Idle Eyes" type="AnimatedSprite" parent="."]
 
 transform/pos = Vector2( -31.399, 15.3145 )
 frames = SubResource( 3 )
 animation = "default"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Idle Eyes 2" type="AnimationPlayer" parent="."]
@@ -182,8 +252,7 @@ autoplay = ""
 
 [node name="Open Jaw" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( 18.4161, 198.893 )
-transform/rot = 28.0
+transform/pos = Vector2( -1.22772, 108.041 )
 frames = SubResource( 5 )
 animation = "default"
 
@@ -192,20 +261,11 @@ animation = "default"
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+"anims/Close Jaw" = SubResource( 9 )
 "anims/Open Jaw" = SubResource( 6 )
-playback/active = false
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
-autoplay = ""
+autoplay = "Open Jaw"
 
 
