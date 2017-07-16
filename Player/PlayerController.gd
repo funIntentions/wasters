@@ -69,6 +69,7 @@ func set_state(state):
 	
 	if state == State.OPENING:
 		state_length = time_to_open
+		get_node("Open Jaw 2").play("Open Jaw")
 	elif state == State.CLOSING:
 		if current_state == State.OPENING:
 			state_length = current_state_time
