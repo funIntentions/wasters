@@ -16,23 +16,17 @@ var state_length = 0.0
 var velocity = Vector2()
 
 onready var skull_bottom = get_node("skull_bottom")
-var laser_height = 0.0
-var laser_length = 0.0
-var laser_previous_height = 0.0
-var laser_previous_length = 0.0
-var laser_max_length = 600.0
-var laser_max_height = 50.0
-
-var laser_shape;
 onready var laser = get_node("laser")
+
+onready var animation_player = get_node("Open Jaw 2")
+var prev_anim_time = 0.0
 
 func _ready():
 	set_fixed_process(true)
 	set_process(true)
 	#print("States: CLOSED = 0, OPEN = 1, OPENING = 2, CLOSING = 3")
-	
-	laser_length = laser_max_length
-	laser_shape = RectangleShape2D.new()
+
+	animation_player.set_current_animation("Open Jaw")
 
 func _process(delta):
 	
@@ -47,34 +41,34 @@ func _process(delta):
 
 
 func update_state(delta):
+	var length = animation_player.get_current_animation_length()
+	
 	if state_length > 0.0:
 		current_state_time += delta
 		var percentage_done = clamp(current_state_time / state_length, 0.0, 1.0)
-		if percentage_done >= 1.0:
 			#print("%:", percentage_done, ", current time:", current_state_time, ", state_length:", state_length)
 			#print("laser {length: ", laser_length, ", height: ", laser_height,"}")
-			if current_state == State.OPENING:
-				set_state(State.OPEN)
-			elif current_state == State.CLOSING:
-				set_state(State.CLOSED)
-		
 		if current_state == State.OPENING:
-			laser_height = lerp(0.0, laser_max_height, percentage_done)
+			var anim_time = lerp(0.0, length, percentage_done)
+			animation_player.seek(anim_time, true)
+			if percentage_done >= 1.0:
+				set_state(State.OPEN)
 		elif current_state == State.CLOSING:
-			laser_height = lerp(laser_previous_height, 0.0, percentage_done)
-		
-		laser.set_laser_extents(laser_length, laser_height)
+			var anim_time = lerp(prev_anim_time, 0.0, percentage_done)
+			animation_player.seek(anim_time, true)
+			if percentage_done >= 1.0:
+				set_state(State.CLOSED)
 
 func set_state(state):
 	
 	if state == State.OPENING:
 		state_length = time_to_open
-		get_node("Open Jaw 2").play("Open Jaw")
 	elif state == State.CLOSING:
 		if current_state == State.OPENING:
 			state_length = current_state_time
 		elif current_state == State.OPEN:
 			state_length = time_to_open
+		prev_anim_time = animation_player.get_current_animation_pos()
 	else:
 		state_length = 0.0
 	
@@ -83,8 +77,6 @@ func set_state(state):
 	else:
 		laser.set_active(false)
 	
-	laser_previous_length = laser_length
-	laser_previous_height = laser_height
 	current_state = state
 	current_state_time = 0.0
 	

@@ -1,22 +1,19 @@
 extends Node2D
 
 var laser_height = 0.0
-var laser_length = 0.0
 var is_active = false
 
+export var laser_length = 600.0
 export var damage_per_second = 100.0
 export var damage_force = 500
 export var top_margin = 100
 export var bottom_margin = 20
 
+
 onready var jaw = get_node("../jaw")
 
 func _ready():
 	set_process(true)
-
-func set_laser_extents(length, height):
-	laser_length = length
-	#laser_height = height
 
 func set_active(state):
 	is_active = state
@@ -37,7 +34,6 @@ func _process(delta):
 		return
 	
 	laser_height = jaw.get_pos().y - get_pos().y
-	print(laser_height)
 	
 	var laser_position = Vector2(-laser_length, top_margin)
 	var laser_rect = Rect2(laser_position + get_global_pos(), Vector2(laser_length, laser_height - bottom_margin))

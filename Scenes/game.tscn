@@ -7,6 +7,8 @@
 
 [node name="enemy_0" parent="." instance=ExtResource( 1 )]
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+seek_weight = 1.0
+
+[node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
 
 
