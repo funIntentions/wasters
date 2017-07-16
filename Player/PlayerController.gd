@@ -33,6 +33,20 @@ func _ready():
 
 func _process(delta):
 	
+	var mouse_pos = get_viewport().get_mouse_pos()
+	var position_from = get_pos() + laser.get_laser_offset()
+	var angle_to = position_from.angle_to_point(mouse_pos) - PI/2
+	
+	if abs(angle_to) > PI/2:
+		flip_sprites(true)
+		set_rot(angle_to)
+	else:
+		flip_sprites(false)
+		set_rot(angle_to)
+	
+	print(angle_to)
+	#set_rot(angle_to)
+	
 	# Update the mouth
 	if Input.is_action_pressed("fire"):
 		if current_state == State.CLOSED:
@@ -41,6 +55,12 @@ func _process(delta):
 		set_state(State.CLOSING)
 	
 	update_state(delta)
+
+func flip_sprites(state):
+	if state:
+		set_scale(Vector2(1, -1))
+	else:
+		set_scale(Vector2(1, 1))
 
 func get_brain_juice():
 	return brain_juice

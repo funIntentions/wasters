@@ -28,7 +28,7 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Skull Animation:frame")
+tracks/0/path = NodePath("skull:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 3, 3, 2, 1, 0 ] }
@@ -48,27 +48,27 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Idle Eyes:transform/scale")
+tracks/0/path = NodePath("eyes:transform/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( 1, 1 ) ] }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Idle Eyes:transform/rot")
+tracks/1/path = NodePath("eyes:transform/rot")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ 0.0 ] }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Idle Eyes:transform/pos")
+tracks/2/path = NodePath("eyes:transform/pos")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":0, "values":[ Vector2( -31.399, 15.3145 ) ] }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Idle Eyes:frame")
+tracks/3/path = NodePath("eyes:frame")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = { "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0, 1 ] }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Idle Eyes:playing")
+tracks/4/path = NodePath("eyes:playing")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ true ] }
@@ -117,16 +117,18 @@ tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "updat
 
 [node name="player" type="KinematicBody2D"]
 
-transform/pos = Vector2( 541.135, 304.483 )
+transform/pos = Vector2( 538.135, 297.483 )
+z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -1, 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 7, -64.0003 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 time_to_open = 0.5
+brain_juice_max = 100.0
 
 [node name="laser" type="Node2D" parent="."]
 
@@ -134,19 +136,19 @@ script/script = ExtResource( 2 )
 laser_length = 2000.0
 damage_per_second = 100.0
 damage_force = 300
-top_margin = 100
+top_margin = 0
 bottom_margin = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -1, 4 )
+transform/pos = Vector2( 7, -64.0003 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Skull Animation" type="AnimatedSprite" parent="."]
+[node name="skull" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( -1.22778, -1.22775 )
+transform/pos = Vector2( 6.77222, -88.8719 )
 frames = SubResource( 2 )
 animation = "default"
 frame = 1
@@ -162,11 +164,12 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = "Idle Skull"
 
-[node name="Idle Eyes" type="AnimatedSprite" parent="."]
+[node name="eyes" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( -31.399, 15.3145 )
+transform/pos = Vector2( -23.399, -72.3297 )
 frames = SubResource( 5 )
 animation = "default"
+frame = 1
 playing = true
 
 [node name="Idle Eyes 2" type="AnimationPlayer" parent="."]
@@ -182,7 +185,7 @@ autoplay = ""
 
 [node name="jaw" type="AnimatedSprite" parent="."]
 
-transform/pos = Vector2( -1.22772, 108.041 )
+transform/pos = Vector2( 6.77228, 20.3969 )
 frames = SubResource( 7 )
 animation = "default"
 

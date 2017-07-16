@@ -35,7 +35,6 @@ laser_weight = 5.0
 [node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1014.55, 334.411 )
-brain_juice_max = 100.0
 
 [node name="hud" type="Node" parent="."]
 

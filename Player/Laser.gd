@@ -6,7 +6,7 @@ var is_active = false
 export var laser_length = 600.0
 export var damage_per_second = 100.0
 export var damage_force = 500
-export var top_margin = 100
+export var top_margin = 0
 export var bottom_margin = 20
 
 
@@ -17,6 +17,9 @@ func _ready():
 
 func set_active(state):
 	is_active = state
+
+func get_laser_offset():
+	return Vector2(0.0, laser_height - bottom_margin)
 
 func _draw():
 	if not is_active:

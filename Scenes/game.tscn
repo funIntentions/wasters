@@ -14,6 +14,4 @@ laser_weight = 5.0
 
 [node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
 
-brain_juice_max = 100.0
-
 
