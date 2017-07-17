@@ -11,7 +11,12 @@ radius = 71.4669
 
 [sub_resource type="SpriteFrames" id=2]
 
-animations = [ { "frames":[ ExtResource( 3 ) ], "loop":true, "name":"default", "speed":5.0 } ]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="Animation" id=3]
 
@@ -23,7 +28,12 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("eye_ball/AnimatedSprite:modulate")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.2 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Color( 1, 1, 1, 1 ), Color( 0.992188, 0.135651, 0.135651, 1 ) ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.992188, 0.135651, 0.135651, 1 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -34,9 +44,16 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("eye_ball/AnimatedSprite:transform/scale")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0, 0.4, 0.5 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ] }
+tracks/0/keys = {
+"times": FloatArray( 0, 0.4, 0.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
 
-[node name="Enemy_Eye1" type="KinematicBody2D" groups=[ "enemy" ]]
+[node name="Enemy_Eye1" type="KinematicBody2D" groups=[
+"enemy",
+]]
 
 transform/pos = Vector2( 346.688, 299.961 )
 input/pickable = false
