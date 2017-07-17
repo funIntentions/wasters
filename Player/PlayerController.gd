@@ -27,9 +27,25 @@ onready var skull_animation_player = get_node("Open Skull")
 var prev_skull_anim_time = 0.0
 onready var laser_animation_player = get_node("Laser Open")
 var prev_laser_anim_time = 0.0
+onready var death_animation_player = get_node("Brain Blast 2")
 
 export var max_velocity = 600.0
 export var deaccel = 50.0
+
+var is_dead = false
+
+func kill():
+	if is_dead:
+		return
+	is_dead = true
+	var brain_blast = get_node("brain_blast")
+	brain_blast.show()
+	var skull = get_node("skull")
+	skull.hide()
+	death_animation_player.play("Brain Blast")
+	
+	if current_state != State.CLOSED:
+		set_state(State.CLOSING)
 
 func _ready():
 	set_fixed_process(true)
@@ -41,6 +57,13 @@ func _ready():
 	laser_animation_player.set_current_animation("LaserOpen")
 
 func _process(delta):
+	
+	if brain_juice <= 0.0:
+		brain_juice = 0.0
+		kill()
+	
+	if is_dead:
+		return
 	
 	var mouse_pos = get_viewport().get_mouse_pos()
 	var position_from = get_pos()

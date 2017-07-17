@@ -142,8 +142,8 @@ func _process(delta):
 	if is_colliding():
 		#print("coliding")
 		var body = get_collider()
-		#if body.is_in_group("target"):
-			#print("player hit")
+		if body.is_in_group("target"):
+			body.kill()
 
 func _fixed_process(delta):
 	
