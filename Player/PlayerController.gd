@@ -22,7 +22,11 @@ onready var skull_bottom = get_node("skull_bottom")
 onready var laser = get_node("laser")
 
 onready var jaw_animation_player = get_node("Open Jaw 2")
-var prev_anim_time = 0.0
+var prev_jaw_anim_time = 0.0
+onready var skull_animation_player = get_node("Open Skull")
+var prev_skull_anim_time = 0.0
+onready var laser_animation_player = get_node("Laser Open")
+var prev_laser_anim_time = 0.0
 
 export var max_velocity = 600.0
 export var deaccel = 50.0
@@ -33,6 +37,8 @@ func _ready():
 	#print("States: CLOSED = 0, OPEN = 1, OPENING = 2, CLOSING = 3")
 
 	jaw_animation_player.set_current_animation("Open Jaw")
+	skull_animation_player.set_current_animation("Open Skull")
+	laser_animation_player.set_current_animation("LaserOpen")
 
 func _process(delta):
 	
@@ -68,7 +74,9 @@ func get_brain_juice():
 	return brain_juice
 
 func update_state(delta):
-	var length = jaw_animation_player.get_current_animation_length()
+	var jaw_length = jaw_animation_player.get_current_animation_length()
+	var skull_length = skull_animation_player.get_current_animation_length()
+	var laser_length = laser_animation_player.get_current_animation_length()
 	
 	if state_length > 0.0:
 		current_state_time += delta
@@ -76,13 +84,21 @@ func update_state(delta):
 			#print("%:", percentage_done, ", current time:", current_state_time, ", state_length:", state_length)
 			#print("laser {length: ", laser_length, ", height: ", laser_height,"}")
 		if current_state == State.OPENING:
-			var anim_time = lerp(0.0, length, percentage_done)
-			jaw_animation_player.seek(anim_time, true)
+			var jaw_anim_time = lerp(0.0, jaw_length, percentage_done)
+			jaw_animation_player.seek(jaw_anim_time, true)
+			var skull_anim_time = lerp(0.0, skull_length, percentage_done)
+			skull_animation_player.seek(skull_anim_time, true)
+			var laser_anim_time = lerp(0.0, laser_length, percentage_done)
+			laser_animation_player.seek(laser_anim_time, true)
 			if percentage_done >= 1.0:
 				set_state(State.OPEN)
 		elif current_state == State.CLOSING:
-			var anim_time = lerp(prev_anim_time, 0.0, percentage_done)
-			jaw_animation_player.seek(anim_time, true)
+			var jaw_anim_time = lerp(prev_jaw_anim_time, 0.0, percentage_done)
+			jaw_animation_player.seek(jaw_anim_time, true)
+			var skull_anim_time = lerp(prev_skull_anim_time, 0.0, percentage_done)
+			skull_animation_player.seek(skull_anim_time, true)
+			var laser_anim_time = lerp(prev_laser_anim_time, 0.0, percentage_done)
+			laser_animation_player.seek(laser_anim_time, true)
 			if percentage_done >= 1.0:
 				set_state(State.CLOSED)
 	
@@ -98,7 +114,9 @@ func set_state(state):
 			state_length = current_state_time
 		elif current_state == State.OPEN:
 			state_length = time_to_open
-		prev_anim_time = jaw_animation_player.get_current_animation_pos()
+		prev_jaw_anim_time = jaw_animation_player.get_current_animation_pos()
+		prev_skull_anim_time = skull_animation_player.get_current_animation_pos()
+		prev_laser_anim_time = laser_animation_player.get_current_animation_pos()
 	else:
 		state_length = 0.0
 	
