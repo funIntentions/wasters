@@ -3,21 +3,20 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 960, 10 )
+extents = Vector2( 1920, 40 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 540 )
+extents = Vector2( 40, 1080 )
 
 [node name="level_bounds" type="Node"]
 
 [node name="top_wall" type="StaticBody2D" parent="."]
 
-editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 960, -2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1920, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -28,18 +27,17 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top_wall"]
 
-transform/pos = Vector2( 960, -2 )
+transform/pos = Vector2( 1920, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="bottom_wall" type="StaticBody2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 0, 1080 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 960, -2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1920, 1080 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -50,18 +48,17 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bottom_wall"]
 
-transform/pos = Vector2( 960, -2 )
+transform/pos = Vector2( 1920, 1080 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="left_wall" type="StaticBody2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 0, 540 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 540 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -72,17 +69,17 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left_wall"]
 
+transform/pos = Vector2( 0, 540 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
 [node name="left_wall1" type="StaticBody2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 1920, 540 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1920, 540 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -93,6 +90,7 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left_wall1"]
 
+transform/pos = Vector2( 1920, 540 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0

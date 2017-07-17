@@ -56,6 +56,7 @@ tracks/0/keys = {
 ]]
 
 transform/pos = Vector2( 346.688, 299.961 )
+transform/scale = Vector2( 0.75, 0.75 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -64,15 +65,15 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-max_velocity = 400.0
-max_acceleration = 600.0
+max_velocity = 550.0
+max_acceleration = 900.0
 max_health = 100.0
 alignment_distance = 1000.0
 alignment_weight = 0.0
 cohesion_weight = 0.0
 separation_weight = 0.0
 seek_weight = 1.0
-laser_weight = 5.0
+laser_weight = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
