@@ -122,9 +122,8 @@ func calculate_target_center_of_mass():
 		if target == self:
 			continue
 		
-		if (target.get_pos().distance_to(get_pos()) <= alignment_distance):
-			center_of_mass += target.get_pos()
-			neighbour_count += 1
+		center_of_mass += target.get_pos()
+		neighbour_count += 1
 	
 	if neighbour_count == 0:
 		return center_of_mass
