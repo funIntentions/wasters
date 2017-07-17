@@ -190,6 +190,10 @@ func _fixed_process(delta):
 		velocity = n.slide(velocity)
 		move(motion)
 		
+	var position_from = get_pos()
+	var angle_to = position_from.angle_to_point(position_from + velocity) + deg2rad(25)
+	if not is_dead:
+		set_rot(angle_to)
 	
 	# Store the prev_velocity that other enemies will use in movement calculations.
 	prev_velocity = velocity
