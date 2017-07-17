@@ -47,10 +47,10 @@ animations = [ { "frames":[ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 1
 
 resource/name = "Brain Blast"
 length = 1.0
-loop = true
+loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Brain Blast:frame")
+tracks/0/path = NodePath("brain_blast:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "update":1, "values":[ 0, 1, 2, 3, 4 ] }
@@ -277,10 +277,10 @@ animation = "default"
 transform/pos = Vector2( -30.5244, 15.8989 )
 frames = SubResource( 4 )
 animation = "default"
-frame = 1
+frame = 2
 playing = true
 
-[node name="Brain Blast" type="AnimatedSprite" parent="."]
+[node name="brain_blast" type="AnimatedSprite" parent="."]
 
 editor/display_folded = true
 visibility/visible = false
@@ -288,12 +288,12 @@ transform/pos = Vector2( 5.61981, -158.839 )
 frames = SubResource( 5 )
 animation = "default"
 
-[node name="eyes1" type="AnimatedSprite" parent="Brain Blast"]
+[node name="eyes1" type="AnimatedSprite" parent="brain_blast"]
 
 transform/pos = Vector2( -28.9748, 77.0881 )
 frames = SubResource( 4 )
 animation = "default"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Brain Blast 2" type="AnimationPlayer" parent="."]

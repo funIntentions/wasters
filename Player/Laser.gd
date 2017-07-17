@@ -25,6 +25,7 @@ func get_laser_offset():
 	return Vector2(0.0, laser_height - bottom_margin)
 
 func _draw():
+	return
 	draw_set_transform_matrix(get_global_transform().affine_inverse())
 	
 	var up = get_global_transform().y
@@ -63,6 +64,9 @@ func segment_cast(begin_pos, end_pos):
 	return hits
 
 func _fixed_process(delta):
+	if not is_active:
+		return
+	
 	var space_state = get_world_2d().get_direct_space_state()
 	# use global coordinates, not local to node
 	var up = -get_global_transform().y

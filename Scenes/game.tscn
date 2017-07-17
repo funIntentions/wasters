@@ -10,13 +10,7 @@
 
 transform/pos = Vector2( 329.986, 323.344 )
 
-[node name="player" parent="." groups=[
-"target",
-] instance=ExtResource( 2 )]
-
-accel = 800
-max_velocity = 600.0
-deaccel = 50.0
+[node name="player" parent="." groups=[ "target" ] instance=ExtResource( 2 )]
 
 [node name="level_bounds" parent="." instance=ExtResource( 3 )]
 
