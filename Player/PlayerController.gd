@@ -63,6 +63,7 @@ func _process(delta):
 		kill()
 	
 	if is_dead:
+		update_state(delta)
 		return
 	
 	var mouse_pos = get_viewport().get_mouse_pos()

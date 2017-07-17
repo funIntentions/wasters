@@ -23,6 +23,8 @@ var damage_dir = Vector2()
 
 var is_dead = false
 
+onready var animation_player = get_node("AnimationPlayer")
+
 func get_prev_velocity():
 	return prev_velocity
 
@@ -137,7 +139,11 @@ func _process(delta):
 	
 	if health <= 0.0 and not is_dead:
 		is_dead = true
-		# TODO: Play animation.
+	
+	if animation_player.get_current_animation() == "Dying" and not is_dead:
+		if animation_player.get_current_animation_pos() == animation_player.get_current_animation_length():
+			animation_player.seek(0.0, true)
+			animation_player.play("Idle Eye")
 	
 	if is_colliding():
 		#print("coliding")
@@ -195,6 +201,9 @@ func take_damage(damage, force, direction):
 	damage_taken = damage
 	damage_force = force
 	damage_dir = direction
+	
+	if (animation_player.get_current_animation() != "Dying"):
+		animation_player.play("Dying")
 	
 	if health <= 0.0:
 		health = 0.0

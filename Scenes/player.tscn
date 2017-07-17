@@ -252,9 +252,9 @@ deaccel = 50.0
 [node name="laser" type="Node2D" parent="."]
 
 script/script = ExtResource( 2 )
-laser_length = 200.0
+laser_length = 10000.0
 damage_per_second = 100.0
-damage_force = 300
+damage_force = 400
 top_margin = 0
 bottom_margin = 100
 
@@ -361,7 +361,7 @@ autoplay = ""
 [node name="Laser" type="AnimatedSprite" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( -1055.15, -0.231781 )
+transform/pos = Vector2( -2177.45, 2.43869 )
 transform/rot = 90.0
 transform/scale = Vector2( 1e-05, 1 )
 frames = SubResource( 13 )
