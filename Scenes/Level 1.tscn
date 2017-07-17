@@ -18,9 +18,6 @@ texture = ExtResource( 1 )
 ] instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 863.821, 295.813 )
-accel = 800
-max_velocity = 600.0
-deaccel = 50.0
 
 [node name="Enemy_Eye1" parent="." instance=ExtResource( 3 )]
 
@@ -43,5 +40,9 @@ transform/pos = Vector2( 3266.13, 1723.22 )
 [node name="Enemy_Eye1 2" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 866.572, 1802.69 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+animation = "default"
 
 
