@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Enemy/EnemyController.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Art/Frames/Enemy_eye1.tex" type="Texture" id=3]
+[ext_resource path="res://Art/Frames/Enemy_eye2.tex" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -72,7 +72,7 @@ alignment_distance = 1000.0
 alignment_weight = 0.0
 cohesion_weight = 0.0
 separation_weight = 0.0
-seek_weight = 1.0
+seek_weight = 0.5
 laser_weight = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
