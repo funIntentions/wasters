@@ -1,5 +1,8 @@
-[gd_resource type="Theme" format=1]
+[gd_resource type="Theme" load_steps=2 format=1]
+
+[ext_resource path="res://GUI/RubikMediumWithGradient.fnt" type="BitmapFont" id=1]
 
 [resource]
 
+default_font = ExtResource( 1 )
 
